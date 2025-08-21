@@ -153,7 +153,7 @@ const DataCard = memo(({ title, titlePrefix, titleColor, data, type, variant }: 
                         <HoverCardTrigger asChild>
                           <CircleHelp className="h-4 w-4 cursor-help text-gray-400 hover:text-gray-600" />
                         </HoverCardTrigger>
-                        <HoverCardContent className="w-auto p-3 text-xs">
+                        <HoverCardContent className="w-auto p-3 text-left">
                           {header.tooltip}
                         </HoverCardContent>
                       </HoverCard>
