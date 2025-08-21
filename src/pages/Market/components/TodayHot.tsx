@@ -128,7 +128,7 @@ const DataCard = memo(({ title, titlePrefix, titleColor, data, type, variant }: 
   }, [data, type, variant, styles]);
 
   return (
-    <Card className="bg-card text-card-foreground flex flex-col gap-2 rounded-xl border border-none p-2 shadow-sm">
+    <Card className="text-card-foreground flex flex-col gap-2 rounded-xl border border-none bg-[#FCFCFC] p-2 shadow-sm">
       <CardHeader className="px-2">
         <CardTitle className="text-sm font-medium">
           {titlePrefix}
