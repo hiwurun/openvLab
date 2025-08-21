@@ -2,7 +2,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { FEATURES } from '@/constans';
-import { BarChart3 } from 'lucide-react';
+import { BarChart3, CircleHelp, Play } from 'lucide-react';
 
 export default function HomePage() {
   return (
@@ -29,13 +29,13 @@ export default function HomePage() {
             我们为期权交易者提供最好的图表工具
           </h1>
           <p className="mb-8 text-lg text-gray-600">专业、极简、跨平台的期权行情与策略分析平台</p>
-
-          <div className="mb-8 flex flex-col justify-center gap-4 sm:flex-row">
+          <div className="mb-8 flex justify-center gap-4">
             <Button size="lg" className="bg-black px-8 text-white hover:bg-gray-800">
+              <Play />
               开始使用
             </Button>
             <Button variant="outline" size="lg" className="bg-transparent px-8">
-              <div className="mr-2 h-2 w-2 rounded-full bg-gray-400"></div>
+              <CircleHelp />
               了解更多
             </Button>
           </div>
