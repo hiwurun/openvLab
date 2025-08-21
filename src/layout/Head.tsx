@@ -2,15 +2,19 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { NAV_LIST } from '@/constans';
 import { ChevronDown } from 'lucide-react';
 import { useState } from 'react';
+import { useNavigate } from 'react-router';
 
 export default function Header() {
   const [openPopover, setOpenPopover] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   return (
     <div className="bg-background/95 border-border/40 sticky top-0 z-50 flex h-14 w-full items-center justify-between border-b px-5 py-4 backdrop-blur-sm">
       <div className="flex items-center gap-3">
-        <img className="h-7 w-7" src="https://www.openvlab.cn/logo.svg" alt="Logo" />
-        <span className="text-primary hidden text-lg font-bold sm:inline-block">OpenVlab</span>
+        <div className="flex cursor-pointer items-center gap-3" onClick={() => navigate('/')}>
+          <img className="h-7 w-7" src="https://www.openvlab.cn/logo.svg" alt="Logo" />
+          <span className="text-primary hidden text-lg font-bold sm:inline-block">OpenVlab</span>
+        </div>
         <nav className="ml-4 flex items-center gap-5">
           <ul className="flex items-center gap-5">
             {NAV_LIST.map((item) => (

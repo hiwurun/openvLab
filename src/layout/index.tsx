@@ -1,12 +1,12 @@
-import type { PropsWithChildren } from 'react';
+import { Outlet } from 'react-router';
 import Footer from './Footer';
 import Header from './Head';
 
-export default function Layout({ children }: PropsWithChildren) {
+export default function Layout() {
   return (
     <>
       <Header />
-      {children}
+      <Outlet />
       <Footer />
     </>
   );
