@@ -1,1 +1,2 @@
-export * from "./LoadPage";
+export * from './LoadPage';
+export * from './Market';
