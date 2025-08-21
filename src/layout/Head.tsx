@@ -2,11 +2,16 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { NAV_LIST } from '@/constans';
 import { ChevronDown } from 'lucide-react';
 import { useState } from 'react';
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 
 export default function Header() {
   const [openPopover, setOpenPopover] = useState<string | null>(null);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const isActiveRoute = (path: string) => {
+    return location.pathname === path || location.pathname.startsWith(path + '/');
+  };
 
   return (
     <div className="bg-background/95 border-border/40 sticky top-0 z-50 flex h-14 w-full items-center justify-between border-b px-5 py-4 backdrop-blur-sm">
@@ -32,7 +37,11 @@ export default function Header() {
                       >
                         {item.label}
                         <ChevronDown size={14} />
-                        <span className="bg-foreground absolute -bottom-1 left-1/2 h-0.5 w-0 -translate-x-1/2 transform transition-all duration-300 group-hover:w-3/4"></span>
+                        <span
+                          className={`bg-primary absolute -bottom-1 left-1/2 h-0.5 -translate-x-1/2 transform transition-all duration-300 ${
+                            isActiveRoute(item.path) ? 'w-3/4' : 'w-0 group-hover:w-3/4'
+                          }`}
+                        ></span>
                       </button>
                     </PopoverTrigger>
                     <PopoverContent
@@ -80,12 +89,21 @@ export default function Header() {
                     </PopoverContent>
                   </Popover>
                 ) : (
-                  <a
-                    href={item.path}
-                    className="text-muted-foreground hover:text-foreground/80 text-sm font-medium"
+                  <button
+                    onClick={() => navigate(item.path)}
+                    className={`group relative rounded-md px-3 py-2 text-sm font-medium transition-colors ${
+                      isActiveRoute(item.path)
+                        ? 'text-primary bg-accent/30'
+                        : 'text-muted-foreground hover:text-foreground/80 hover:bg-accent/50'
+                    }`}
                   >
                     {item.label}
-                  </a>
+                    <span
+                      className={`bg-primary absolute -bottom-1 left-1/2 h-0.5 -translate-x-1/2 transform transition-all duration-300 ${
+                        isActiveRoute(item.path) ? 'w-3/4' : 'w-0'
+                      }`}
+                    ></span>
+                  </button>
                 )}
               </li>
             ))}
