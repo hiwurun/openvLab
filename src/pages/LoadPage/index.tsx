@@ -3,8 +3,10 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { FEATURES } from '@/constans';
 import { BarChart3, CircleHelp, Play } from 'lucide-react';
+import { useNavigate } from 'react-router';
 
 export default function HomePage() {
+  const navigate = useNavigate();
   return (
     <div>
       <header className="flex items-center justify-center px-6 py-4">
@@ -30,11 +32,20 @@ export default function HomePage() {
           </h1>
           <p className="mb-8 text-lg text-gray-600">专业、极简、跨平台的期权行情与策略分析平台</p>
           <div className="mb-8 flex justify-center gap-4">
-            <Button size="lg" className="bg-black px-8 text-white hover:bg-gray-800">
+            <Button
+              size="lg"
+              className="bg-black px-8 text-white hover:bg-gray-800"
+              onClick={() => navigate('/market')}
+            >
               <Play />
               开始使用
             </Button>
-            <Button variant="outline" size="lg" className="bg-transparent px-8">
+            <Button
+              variant="outline"
+              size="lg"
+              className="bg-transparent px-8"
+              onClick={() => navigate('/teaching')}
+            >
               <CircleHelp />
               了解更多
             </Button>
