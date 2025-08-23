@@ -15,6 +15,7 @@ import { CircleHelp } from 'lucide-react';
 import { chemicalDataApi } from 'mock/market/api';
 import type { ChemicalData } from 'mock/market/type';
 import { memo, useMemo } from 'react';
+import { ReactSVG } from 'react-svg';
 
 type DataCardProps = {
   title: string;
@@ -24,6 +25,12 @@ type DataCardProps = {
   type: 'trend' | 'activity';
   variant: 'rise' | 'decline' | 'highest' | 'lowest';
 };
+const svgModules = Object.entries(
+  import.meta.glob('@/assets/chartSvg/*.svg', {
+    query: '?react-component', // 导入为 React 组件
+    eager: true // 同步加载
+  })
+).map((item) => item?.[0]);
 
 const getVariantStyles = (variant: DataCardProps['variant']) => {
   const styles = {
@@ -79,51 +86,50 @@ const DataCard = memo(({ title, titlePrefix, titleColor, data, type, variant }: 
 
   const tableContent = useMemo(() => {
     return (
-      data?.map((item, index) => (
-        <TableRow key={`${item.name}-${index}`} className="border-b-0 hover:bg-gray-50">
-          <TableCell className="px-3 py-2">
-            <div className="flex items-center gap-1">
-              <div
-                className={cn(
-                  'flex h-4 w-4 items-center justify-center rounded-full',
-                  styles.indicator
-                )}
-              >
-                <div className={cn('h-2 w-2 rounded-full', styles.dot)} />
-              </div>
-              <span className="text-sm">{item.name}</span>
-            </div>
-          </TableCell>
+      data?.map((item, index) => {
+        // 为每一行随机选择一张图片
+        const randomIndex = Math.floor(Math.random() * (svgModules.length as number));
+        const randomSvg = svgModules[randomIndex];
 
-          {type === 'trend' ? (
-            <>
-              <TableCell className={cn('px-3 py-2 text-center text-sm font-medium', styles.text)}>
-                {variant === 'rise' ? '+' : ''}
-                {item.change}%
-              </TableCell>
-              <TableCell className="px-3 py-2 text-center text-sm">{item.price}</TableCell>
-              <TableCell className="px-3 py-2 text-center">
+        return (
+          <TableRow key={`${item.name}-${index}`} className="border-b-0 hover:bg-gray-50">
+            <TableCell className="px-3 py-2">
+              <div className="flex items-center gap-1">
                 <div
                   className={cn(
-                    'flex h-6 w-12 items-center justify-center rounded',
-                    styles.preview
+                    'flex h-4 w-4 items-center justify-center rounded-full',
+                    styles.indicator
                   )}
                 >
-                  <div className={cn('h-3 w-8 rounded-sm', styles.previewInner)} />
+                  <div className={cn('h-2 w-2 rounded-full', styles.dot)} />
                 </div>
-              </TableCell>
-            </>
-          ) : (
-            <>
-              <TableCell className="px-3 py-2 text-center text-sm">{item.change}</TableCell>
-              <TableCell className="px-3 py-2 text-center text-sm">{item.price}</TableCell>
-              <TableCell className={cn('px-3 py-2 text-center text-sm font-medium', styles.text)}>
-                {item.premium}
-              </TableCell>
-            </>
-          )}
-        </TableRow>
-      )) || []
+                <span className="text-sm">{item.name}</span>
+              </div>
+            </TableCell>
+
+            {type === 'trend' ? (
+              <>
+                <TableCell className={cn('px-3 py-2 text-center text-sm font-medium', styles.text)}>
+                  {variant === 'rise' ? '+' : ''}
+                  {item.change}%
+                </TableCell>
+                <TableCell className="px-3 py-2 text-center text-sm">{item.price}</TableCell>
+                <TableCell className="px-3 py-2 text-center">
+                  <ReactSVG src={randomSvg} className="w-full" />
+                </TableCell>
+              </>
+            ) : (
+              <>
+                <TableCell className="px-3 py-2 text-center text-sm">{item.change}</TableCell>
+                <TableCell className="px-3 py-2 text-center text-sm">{item.price}</TableCell>
+                <TableCell className={cn('px-3 py-2 text-center text-sm font-medium', styles.text)}>
+                  {item.premium}
+                </TableCell>
+              </>
+            )}
+          </TableRow>
+        );
+      }) || []
     );
   }, [data, type, variant, styles]);
 
