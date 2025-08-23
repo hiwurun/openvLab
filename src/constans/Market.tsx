@@ -1,3 +1,6 @@
+import type { ColumnDef } from '@/components/ui/data-table';
+import type { MarketData } from '@/server/type';
+
 export const HIDDEN_WAVE = (
   <>
     <p>平值隐波 (1个月滚动窗口)</p>
@@ -58,7 +61,7 @@ export const EXCHANGE_TYPE = [
   { title: '上期所', value: 'shangqi' },
   { title: '大商所', value: 'dazheng' },
   { title: '郑商所', value: 'zhengshang' },
-  { title: '能源中心', value: 'shangqi' },
+  { title: '能源中心', value: 'nengyuan' },
   { title: '广期所', value: 'guangqi' }
 ];
 
@@ -67,17 +70,86 @@ export const EXPORT_TYPE = [
   { title: '导出为JSON', value: 'json' }
 ];
 
-export const COLUMNS = [
-  { title: '名称', isHoverCard: true, sortable: true, field: 'product' },
-  { title: '最新价', isHoverCard: false, sortable: false, field: 'price' },
-  { title: '标的涨幅%', isHoverCard: true, sortable: true, field: 'optionType' },
-  { title: '当月隐波', isHoverCard: true, sortable: true, field: 'optionName' },
-  { title: '隐波变化', isHoverCard: false, sortable: true, field: 'optionCode' },
-  { title: '隐波涨速', isHoverCard: true, sortable: true, field: 'optionPrice' },
-  { title: '实波', isHoverCard: true, sortable: true, field: 'optionVolume' },
-  { title: '溢价', isHoverCard: true, sortable: true, field: 'optionVolume' },
-  { title: '当月偏度', isHoverCard: true, sortable: true, field: 'optionVolume' },
-  { title: '隐波百分位', isHoverCard: true, sortable: true, field: 'optionVolume' },
-  { title: '偏度百分位', isHoverCard: true, sortable: true, field: 'optionVolume' },
-  { title: '走势预览', isHoverCard: true, sortable: true, field: 'optionVolume' }
+export const COLUMNS: ColumnDef<MarketData>[] = [
+  {
+    key: 'product_alias',
+    title: '名称',
+    tooltip: '名称',
+    sortable: true,
+    sticky: true,
+    render: (value: string, row: MarketData) => <p>{value + row.prodUnd + row.exp.slice(2)}</p>
+  },
+  {
+    key: 'price',
+    title: '最新价',
+    tooltip: '最新价',
+    sortable: false,
+    sticky: false,
+    render: (value: string) => <p>{value}</p>
+  },
+  {
+    key: 'ctn',
+    title: '标的涨幅%',
+    tooltip: '标的涨幅%',
+    sortable: true,
+
+    render: (value: string) => <p>{(parseFloat(value) * 100).toFixed(2)}%</p>
+  },
+  {
+    key: 'atmv22',
+    title: '当月隐波',
+    tooltip: '当月隐波',
+    sortable: true,
+    sticky: false
+  },
+  {
+    key: 'atmv_1dchg',
+    title: '隐波变化',
+    tooltip: '隐波变化',
+    sortable: true,
+    sticky: false
+  },
+  {
+    key: 'valphaT',
+    title: '隐波涨速',
+    tooltip: '隐波涨速',
+    sortable: true,
+    sticky: false
+  },
+  {
+    key: 'rv22',
+    title: '实波',
+    tooltip: '实波',
+    sortable: true,
+    sticky: false
+  },
+  {
+    key: 'carry',
+    title: '溢价',
+    tooltip: '溢价',
+    sortable: true,
+    sticky: false
+  },
+  {
+    key: 'skew22',
+    title: '当月偏度',
+    tooltip: '当月偏度',
+    sortable: true,
+    sticky: false
+  },
+  {
+    key: 'atmv_percentile',
+    title: '隐波百分位',
+    tooltip: '隐波百分位',
+    sortable: true,
+    sticky: false
+  },
+  {
+    key: 'skew_percentile',
+    title: '偏度百分位',
+    tooltip: '偏度百分位',
+    sortable: true,
+    sticky: false
+  }
+  // { title: '走势预览', isHoverCard: true, sortable: true, field: 'optionVolume' }
 ];

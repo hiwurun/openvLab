@@ -43,9 +43,9 @@ export default function Condition() {
             <Label htmlFor="airplane-mode">仅夜盘</Label>
           </div>
           <Popover>
-            <PopoverTrigger>
+            <PopoverTrigger asChild>
               <Button size="sm" variant="outline">
-                <FileDown className="h-4 w-4" />
+                <FileDown className="h-4 w-4" aria-label="导出" />
                 导出
                 <ChevronDown />
               </Button>
