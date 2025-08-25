@@ -16,17 +16,17 @@ import { ArrowDown, ArrowUp, ArrowUpDown, HelpCircle } from 'lucide-react';
 
 type SortDirection = 'asc' | 'desc' | null;
 
-export interface ColumnDef<T = any> {
+export interface ColumnDef<T> {
   key: string;
   title: string;
   tooltip?: React.ReactNode | string;
   sortable?: boolean;
   sticky?: boolean;
   minWidth?: string;
-  render?: (value: any, row: T) => React.ReactNode;
+  render?: (value: T[keyof T], row: T) => React.ReactNode;
 }
 
-interface DataTableProps<T = any> {
+interface DataTableProps<T> {
   data: T[];
   columns: ColumnDef<T>[];
   sortColumn?: string | null;
@@ -34,7 +34,7 @@ interface DataTableProps<T = any> {
   onSort?: (column: string, direction: SortDirection) => void;
 }
 
-export function DataTable<T = any>({
+export function DataTable<T>({
   data,
   columns,
   sortColumn,

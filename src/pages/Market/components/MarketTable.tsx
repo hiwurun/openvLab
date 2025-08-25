@@ -8,20 +8,6 @@ import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import Condition from './Condition';
 
-// 获取列的提示信息
-function getTooltipContent(title: string): string {
-  switch (title) {
-    case '当月隐波':
-      return '平值隐波 (1个月滚动窗口)，选定距当前日期一个月到期，平值期权所对应的隐含波动率';
-    case '实波':
-      return '实际波动率 (1个月滚动窗口)，选定过去一个月滚动窗口，标的资产的实际波动率';
-    case '溢价':
-      return '波动率溢价，隐含波动率与实际波动率的差值';
-    default:
-      return `关于${title}的详细说明`;
-  }
-}
-
 export default function MarketTable() {
   const [sortColumn, setSortColumn] = useState<string | null>(null);
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc' | null>(null);

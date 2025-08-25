@@ -211,10 +211,5 @@ export default function Teaching() {
     }
   ];
 
-  const handleMenuItemClick = (item: any, breadcrumbs: any[]) => {
-    console.log('Menu item clicked:', item.title);
-    console.log('Breadcrumbs:', breadcrumbs);
-  };
-
-  return <Layout menuItems={menuItems} onMenuItemClick={handleMenuItemClick} />;
+  return <Layout menuItems={menuItems} />;
 }

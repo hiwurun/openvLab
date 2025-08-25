@@ -52,19 +52,6 @@ export function Layout({
     return null;
   };
 
-  const findMenuItemByTitle = (title: string, items: MenuItem[]): MenuItem | null => {
-    for (const item of items) {
-      if (item.title === title) {
-        return item;
-      }
-      if (item.children) {
-        const found = findMenuItemByTitle(title, item.children);
-        if (found) return found;
-      }
-    }
-    return null;
-  };
-
   useEffect(() => {
     if (menuItems.length > 0 && !activeMenuItem) {
       const firstItemWithContent = findFirstMenuItemWithContent(menuItems);
