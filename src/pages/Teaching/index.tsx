@@ -7,7 +7,7 @@ import {
   DialogTrigger
 } from '@/components/ui/dialog';
 import { ReactSVG } from 'react-svg';
-import { Layout } from './components/layout';
+import { Layout } from './components/Layout';
 
 export default function Teaching() {
   const videoList = [

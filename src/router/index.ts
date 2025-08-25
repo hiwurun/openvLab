@@ -3,6 +3,7 @@ import { createBrowserRouter } from 'react-router';
 import Layout from '@/layout';
 import LoadPage from '@/pages/LoadPage';
 import Market from '@/pages/Market';
+import NotFound from '@/pages/NotFound';
 import Teaching from '@/pages/Teaching';
 
 const router = createBrowserRouter([
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
         Component: Teaching
       }
     ]
+  },
+  {
+    path: '*',
+    Component: NotFound
   }
 ]);
 
