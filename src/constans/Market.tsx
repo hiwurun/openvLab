@@ -1,6 +1,19 @@
+import { DashboardProgress } from '@/components/ui/dashboard-progress';
 import type { ColumnDef } from '@/components/ui/data-table';
+import { Progress } from '@/components/ui/progress';
 import type { MarketData } from '@/server/type';
 import { ReactSVG } from 'react-svg';
+
+const handleNegative = (value: string, suffix?: string) => {
+  const num = parseFloat(value);
+  if (num === 0) {
+    return <span>{value + suffix}</span>;
+  }
+  if (num < 0) {
+    return <span className="text-[#089981]">{value + suffix}</span>;
+  }
+  return <span className="text-[#EF5350]">+{value + suffix}</span>;
+};
 
 export const HIDDEN_WAVE = (
   <>
@@ -240,8 +253,7 @@ export const COLUMNS: ColumnDef<MarketData>[] = [
     title: '标的涨幅%',
     tooltip: TABLE_TOOLTIP.CTN,
     sortable: true,
-
-    render: (value: string) => <p>{(parseFloat(value) * 100).toFixed(2)}%</p>
+    render: (value: string) => <p>{handleNegative((parseFloat(value) * 100).toFixed(2), '%')}</p>
   },
   {
     key: 'atmv22',
@@ -254,14 +266,16 @@ export const COLUMNS: ColumnDef<MarketData>[] = [
     key: 'atmv_1dchg',
     title: '隐波变化',
     sortable: true,
-    sticky: false
+    sticky: false,
+    render: (value: string) => <p>{handleNegative(value, '')}</p>
   },
   {
     key: 'valphaT',
     title: '隐波涨速',
     tooltip: TABLE_TOOLTIP.VALPHAT,
     sortable: true,
-    sticky: false
+    sticky: false,
+    render: (value: string) => <p>{handleNegative(parseFloat(value).toFixed(3), '')}</p>
   },
   {
     key: 'rv22',
@@ -275,7 +289,8 @@ export const COLUMNS: ColumnDef<MarketData>[] = [
     title: '溢价',
     tooltip: TABLE_TOOLTIP.CARRY,
     sortable: true,
-    sticky: false
+    sticky: false,
+    render: (value: string) => <p>{handleNegative(value, '')}</p>
   },
   {
     key: 'skew22',
@@ -289,14 +304,29 @@ export const COLUMNS: ColumnDef<MarketData>[] = [
     title: '隐波百分位',
     tooltip: TABLE_TOOLTIP.ATMV_PERCENTILE,
     sortable: true,
-    sticky: false
+    sticky: false,
+    render: (value: string) => {
+      return (
+        <div className="flex items-center gap-2">
+          <Progress value={parseFloat(value)} />
+          <span>{parseFloat(value).toFixed(2)}%</span>
+        </div>
+      );
+    }
   },
   {
     key: 'skew_percentile',
     title: '偏度百分位',
     tooltip: TABLE_TOOLTIP.SKEW_PERCENTILE,
     sortable: true,
-    sticky: false
+    sticky: false,
+    render(value) {
+      return (
+        <div className="flex items-center justify-center">
+          <DashboardProgress size={80} value={parseFloat(value)} color="warning" />
+        </div>
+      );
+    }
   },
   {
     key: '',
