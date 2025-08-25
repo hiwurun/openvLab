@@ -19,7 +19,7 @@ type SortDirection = 'asc' | 'desc' | null;
 export interface ColumnDef<T = any> {
   key: string;
   title: string;
-  tooltip?: string;
+  tooltip?: React.ReactNode | string;
   sortable?: boolean;
   sticky?: boolean;
   minWidth?: string;

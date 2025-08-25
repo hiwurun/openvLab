@@ -22,16 +22,6 @@ function getTooltipContent(title: string): string {
   }
 }
 
-// 将COLUMNS转换为DataTable需要的格式
-// const tableColumns: ColumnDef<MarketData>[] = COLUMNS.map((col) => ({
-//   key: col.field,
-//   title: col.title,
-//   tooltip: col.isHoverCard ? getTooltipContent(col.title) : undefined,
-//   sortable: col.sortable !== false,
-//   sticky: col.field === 'product_alias',
-//   render: col.render
-// }));
-
 export default function MarketTable() {
   const [sortColumn, setSortColumn] = useState<string | null>(null);
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc' | null>(null);
