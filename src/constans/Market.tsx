@@ -203,6 +203,21 @@ export const TABLE_TOOLTIP = {
       <br />
       <p>该项指标反映隐波偏度的相对水平。</p>
     </div>
+  ),
+  PREVIEW: (
+    <div>
+      <p>走势预览</p>
+      <p>显示标的价格走势和隐含波动率走势的组合图表。</p>
+      <br />
+      <p className="text-blue-500">图表说明：</p>
+      <p>• 主线条：标的价格走势</p>
+      <p>• 紫色线条：隐含波动率走势</p>
+      <br />
+      <p className="text-green-500">使用提示：</p>
+      <p>• 观察价格与隐波的联动关系</p>
+      <p>• 隐波上升通常表示市场预期波动加大</p>
+      <p>• 隐波下降通常表示市场预期波动减小</p>
+    </div>
   )
 } as const;
 
@@ -331,7 +346,7 @@ export const COLUMNS: ColumnDef<MarketData>[] = [
   {
     key: '',
     title: '走势预览',
-    tooltip: '',
+    tooltip: TABLE_TOOLTIP.PREVIEW,
     sortable: false,
     render: () => {
       return <ReactSVG src={'src/assets/preview.svg'} />;
